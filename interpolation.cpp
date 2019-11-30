@@ -2,11 +2,35 @@
 
 extern "C"
 {
+	float EaseInQuad(float value, float start, float end)
+	{
+		return 1 - EaseOutQuad(value, start, end);
+	}
+
 	float EaseOutQuad(float value, float start, float end)
 	{
 		end -= start;
 
 		return end - (value * (2 - value)) + start;
+	}
+
+	float EaseInOutQuad(float value, float start, float end)
+	{
+		float output = 0;
+
+		end -= start;
+
+		if (value <= 0.5f)
+		{
+			output = 2.0f * (value * value);
+		}
+		else
+		{
+			value -= 0.5f;
+			output = 2.0f *  value * (1.0f - value) + 0.5f;
+		}
+
+		return end - output + start;
 	}
 
 	float EaseInBounce(float value, float start, float end)
